@@ -1,19 +1,29 @@
-<h1>Create a task</h1>
+<h1>Create Tasks</h1>
 <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit">Create</button>
 </form>
 <hr style="color: red;">
+<h3>List of tasks to do</h3>
 <ul>
     {% for task in tasks reversed %}
-        <li>
-            {{ task.title }}
-            <div class="checkbox">
-                {{ task.done }}
+        <li style="list-style: none;">
+            
+           {% if task.done %}
+           <div class="">
+            {{ task.id }}: <a href="{% url 'task_update' task.id %}">
+                <s style="color: rgb(106, 51, 51);">{{ task.title }}
+                </s>
+                <a style="color: red;" href="{% url 'task_delete' task.id %}">Delete</a>
+                </a>
             </div>
-            <a href="{% url 'task_update' task.id %}">Update</a>
+            {% else %}
+            {{ task.id }}: {{ task.title }}
+
+            <a href="{% url 'task_update' task.id %}">Edit</a>
             <a href="{% url 'task_delete' task.id %}">Delete</a>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>
