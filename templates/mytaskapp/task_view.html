@@ -10,13 +10,10 @@
         <li>
             {{ task.title }}
             <div class="checkbox">
-                {{ task.dane }}
+                {{ task.done }}
             </div>
             <a href="{% url 'task_update' task.id %}">Update</a>
             <a href="{% url 'task_delete' task.id %}">Delete</a>
         </li>
     {% endfor %}
-    
-    
-
 </ul>
