@@ -1,0 +1,7 @@
+Update task {{ task.id }}<br><br>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form }}<br><br>
+    <button type="submit">Update</button>
+    <a href="{% url 'task_view' %}">Cancel</a>
+</form>

@@ -1,0 +1,6 @@
+<p>Are you sure you want to remove <strong>{{ task.title }}</strong> from task list?</p>
+<form action="{% url 'task_delete' task.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">YES</button>
+    <a href="{% url 'task_view' %}">NO</a>
+</form>

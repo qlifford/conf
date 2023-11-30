@@ -1,0 +1,22 @@
+<h1>Create a task</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<hr style="color: red;">
+<ul>
+    {% for task in tasks reversed %}
+        <li>
+            {{ task.title }}
+            <div class="checkbox">
+                {{ task.dane }}
+            </div>
+            <a href="{% url 'task_update' task.id %}">Update</a>
+            <a href="{% url 'task_delete' task.id %}">Delete</a>
+        </li>
+    {% endfor %}
+    
+    
+
+</ul>
