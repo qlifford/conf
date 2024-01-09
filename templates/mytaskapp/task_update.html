@@ -1,9 +1,22 @@
-<h1>Update task {{ task.id }}</h1>
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <a style="color: blue;" href="{% url 'task_update' task.id %}">Update</a>
-    <a style="color: green;" href="{% url 'task_view' %}">Cancel</a>
-    <a style="color: red;" href="{% url 'task_delete' task.id %}">Delete</a>
+{% extends 'mytaskapp/base.html' %}
+{% block title %} Update tasks {% endblock %}
 
-</form>
+{% block content %}
+
+<center>
+    <div class="container align-items-center py-4">
+        <h1>Task {{ task.id }}</h1>
+        <form action="{% url 'task_update' task.id %}" method="POST">
+            {% csrf_token %}
+            <div class="">
+                <div class="mb-4">
+                    <input type="text" value="{{ task.title }}"><br>
+                </div>
+            </div>
+            <input style="color: blue;" value="Update" type="submit">
+            <a type="button" style="color: green;" href="{% url 'task_view' %}">Cancel</a>
+            <a type="button" style="color: red;" href="{% url 'task_delete' task.id %}">Delete</a>
+        </form>
+    </div>
+</center>
+{% endblock %}

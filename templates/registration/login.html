@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}  My Website | register {% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ form.errors }}
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    
+{% endblock %}

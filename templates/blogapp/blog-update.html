@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}  Update {{ blog.title }} {% endblock %}
+{% block content %}
+<div class="container py-5 w-50">
+    <div class="form-group">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-dark" type="submit"> Update </button>
+            <a class="btn btn-primary" href="{% url 'blogs' %}">Cancel</a>
+    </div>
+</div>
+{% endblock %}
