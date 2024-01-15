@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}  My Website | posts {% endblock %}
+{% block content %}
+    <ul>
+        {% for blog in object_list %}
+                    <div class="card" style="width: 100%; display: block;">
+                        <div class="card-body">
+                        <strong><a href="{% url 'blog-detail' blog.id %}"><h5>{{ blog.title|capfirst }}</h5></a></strong>
+                        <h5 class="card-title"><strong>{{ blog.author|capfirst }}</strong> <small style="color: grey;">{{ blog.created|timesince }} ago</small></h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                        <p class="card-text">{{ blog.body|capfirst|slice:":250" }}...</p>
+                        <a href="{% url 'blog-update' blog.id %}">Edit</a> |
+                        <a style="color: red;" href="{% url 'blog-delete' blog.id %}">Delete</a>
+                        <br>
+                        </div>
+                    </div>
+            <br>
+            {% empty%}
+            <h1 style="color: red;">No posts found!</h1>
+        {% endfor %}
+    </ul>
+{% endblock %}

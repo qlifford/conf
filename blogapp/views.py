@@ -2,35 +2,31 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Blog
-from .forms import BlogForm, BlogUpdateForm
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from .models import Blog
 
 class BlogCreate(LoginRequiredMixin, CreateView):
     model = Blog
-    form_class = BlogForm
-    template_name = 'blogapp/blog-create.html'
-    success_url = reverse_lazy('blogs')
+    fields = ['title','title_tag', 'body']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.date = self.request.date
+        return super().form_valid(form)
 
 class BlogView(ListView):
     model = Blog
-    context_object_name = 'blogs'
-    template_name = 'blogapp/blog-index.html'
     ordering = ['-created']
 
-class BlogDetail(LoginRequiredMixin, DetailView):
+class BlogDetail(DetailView):
     model = Blog
-    template_name = 'blogapp/blog-detail.html'
-
 
 class BlogUpdate(LoginRequiredMixin, UpdateView):
     model = Blog
-    form_class = BlogUpdateForm
-    template_name = 'blogapp/blog-update.html'
-    success_url = reverse_lazy('blogs')
+    fields = ['title','title_tag', 'body']
 
 class BlogDelete(LoginRequiredMixin, DeleteView):
     model = Blog
-    template_name = 'blogapp/blog-delete.html'
     success_url = reverse_lazy('blogs')
